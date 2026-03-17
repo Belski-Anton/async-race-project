@@ -1,17 +1,16 @@
-import { AppController } from './controller/app-controller'
+import { AppController } from '@/controller/app-controller'
+import { createFooter } from '@/view/footer-view'
+import { createHeader } from '@/view/header-view'
+import { createMain } from '@/view/main-view/main-view'
 
 export function createApp(): HTMLDivElement {
   const app = document.createElement('div')
 
-  const garageButton = document.createElement('button')
-  garageButton.textContent = 'Garage'
+  const { header, garageButton, winnersButton } = createHeader()
+  const main = createMain()
+  const footer = createFooter()
 
-  const winnersButton = document.createElement('button')
-  winnersButton.textContent = 'Winners'
-
-  const content = document.createElement('div')
-
-  const controller = new AppController(content)
+  const controller = new AppController(main)
   controller.init()
 
   garageButton.addEventListener('click', () => {
@@ -22,7 +21,7 @@ export function createApp(): HTMLDivElement {
     controller.showWinners()
   })
 
-  app.append(garageButton, winnersButton, content)
+  app.append(header, main, footer)
 
   return app
 }

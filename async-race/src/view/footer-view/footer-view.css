@@ -1,0 +1,31 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ccc;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+}
+
+.pagination-button {
+  padding: 8px 16px;
+  border: 1px solid #333;
+  background-color: #ddd;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.pagination-button:hover {
+  background-color: #bbb;
+}
+
+.pagination-button:disabled {
+  background-color: #f4f4f4;
+  cursor: not-allowed;
+}

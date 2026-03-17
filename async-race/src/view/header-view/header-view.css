@@ -1,0 +1,12 @@
+header {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+}
+
+header button {
+  padding: 8px 12px;
+  border: 1px solid #000;
+  background-color: #cfe8a9;
+  cursor: pointer;
+}

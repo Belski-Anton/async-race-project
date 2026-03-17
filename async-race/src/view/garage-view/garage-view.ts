@@ -1,8 +1,14 @@
+import './garage-view.css'
+
 export function createGarageView(page: number, count: number): HTMLDivElement {
   const garage = document.createElement('div')
+  garage.className = 'garage'
 
   const title = document.createElement('h2')
   title.textContent = 'Garage'
+
+  const garageInfo = document.createElement('div')
+  garageInfo.className = 'garage-info'
 
   const pageText = document.createElement('p')
   pageText.textContent = `Page #${page}`
@@ -10,7 +16,10 @@ export function createGarageView(page: number, count: number): HTMLDivElement {
   const countText = document.createElement('p')
   countText.textContent = `Cars (${count})`
 
+  garageInfo.append(pageText, countText)
+
   const createForm = document.createElement('form')
+  createForm.className = 'garage-form'
 
   const createInput = document.createElement('input')
   createInput.type = 'text'
@@ -25,6 +34,7 @@ export function createGarageView(page: number, count: number): HTMLDivElement {
   createForm.append(createInput, createColorInput, createButton)
 
   const updateForm = document.createElement('form')
+  updateForm.className = 'garage-form'
 
   const updateInput = document.createElement('input')
   updateInput.type = 'text'
@@ -39,6 +49,7 @@ export function createGarageView(page: number, count: number): HTMLDivElement {
   updateForm.append(updateInput, updateColorInput, updateButton)
 
   const controls = document.createElement('div')
+  controls.className = 'garage-controls'
 
   const raceButton = document.createElement('button')
   raceButton.type = 'button'
@@ -55,29 +66,12 @@ export function createGarageView(page: number, count: number): HTMLDivElement {
   controls.append(raceButton, resetButton, generateButton)
 
   const carsList = document.createElement('div')
+  carsList.className = 'garage-list'
 
   const pagination = document.createElement('div')
+  pagination.className = 'garage-pagination'
 
-  const prevButton = document.createElement('button')
-  prevButton.type = 'button'
-  prevButton.textContent = 'PREV'
-
-  const nextButton = document.createElement('button')
-  nextButton.type = 'button'
-  nextButton.textContent = 'NEXT'
-
-  pagination.append(prevButton, nextButton)
-
-  garage.append(
-    title,
-    pageText,
-    countText,
-    createForm,
-    updateForm,
-    controls,
-    carsList,
-    pagination,
-  )
+  garage.append(title, garageInfo, createForm, updateForm, controls, carsList)
 
   return garage
 }
