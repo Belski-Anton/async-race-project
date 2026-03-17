@@ -1,5 +1,4 @@
-import { createGarageView } from './view/garage-view'
-import { createWinnersView } from './view/winners-view'
+import { AppController } from './controller/app-controller'
 
 export function createApp(): HTMLDivElement {
   const app = document.createElement('div')
@@ -11,14 +10,16 @@ export function createApp(): HTMLDivElement {
   winnersButton.textContent = 'Winners'
 
   const content = document.createElement('div')
-  content.append(createGarageView())
+
+  const controller = new AppController(content)
+  controller.init()
 
   garageButton.addEventListener('click', () => {
-    content.replaceChildren(createGarageView())
+    controller.showGarage()
   })
 
   winnersButton.addEventListener('click', () => {
-    content.replaceChildren(createWinnersView())
+    controller.showWinners()
   })
 
   app.append(garageButton, winnersButton, content)
