@@ -6,10 +6,37 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "deploy": "npm run build && npx gh-pages -d dist",
+    "lint": "eslint ",
+    "format": "prettier . --write ",
+    "format:check": "prettier . --check",
+    "preview": "vite preview",
+    "prepare": "cd .. && async-race/.husky"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "gh-pages": "^6.3.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "3.8.1",
+    "stylelint": "^17.4.0",
+    "stylelint-config-standard": "^40.0.0",
     "typescript": "~5.9.3",
+    "typescript-eslint": "^8.57.0",
     "vite": "^8.0.0"
   }
 }
