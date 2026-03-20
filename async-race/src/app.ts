@@ -1,7 +1,7 @@
 import { AppController } from '@/controller/app-controller'
-import { createFooter } from '@/view/footer-view'
-import { createHeader } from '@/view/header-view'
-import { createMain } from '@/view/main-view/main-view'
+import { createFooter } from '@/view/layout/footer-view'
+import { createHeader } from '@/view/layout/header-view'
+import { createMain } from '@/view/layout/main-view/main-view'
 
 export function createApp(): HTMLDivElement {
   const app = document.createElement('div')

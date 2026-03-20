@@ -1,5 +1,7 @@
-import { createGarageView } from '@/view/garage-view'
-import { createWinnersView } from '@/view/winners-view'
+import { getCars } from '@/api/api-cars'
+import { CARS_PER_PAGE } from '@/constants/constants'
+import { createGarageView } from '@/view/pages/garage-view'
+import { createWinnersView } from '@/view/pages/winners-view'
 export class AppController {
   private readonly container: HTMLElement
 
@@ -7,7 +9,8 @@ export class AppController {
     this.container = container
   }
   public async showGarage(): Promise<void> {
-    const garage = await createGarageView(1)
+    const { items, total } = await getCars(1, CARS_PER_PAGE)
+    const garage = createGarageView(items, 1, total)
     this.container.replaceChildren(garage)
   }
   public showWinners(): void {
