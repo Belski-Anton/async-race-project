@@ -10,7 +10,11 @@ export class AppController {
   }
   public async showGarage(): Promise<void> {
     const { items, total } = await getCars(1, CARS_PER_PAGE)
-    const garage = createGarageView(items, 1, total)
+    const garage = createGarageView({
+      cars: items,
+      page: 1,
+      total,
+    })
     this.container.replaceChildren(garage)
   }
   public showWinners(): void {

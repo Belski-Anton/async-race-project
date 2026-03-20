@@ -1,16 +1,16 @@
-import type { Car } from '@/model/car.model'
 import './garage-view.css'
+import type { GarageViewProps } from './types'
 
-import { createGarageInfo } from './garage-info'
-import { createForm } from './garage-form'
-import { createControls } from './garage-controls'
 import { createCarsList } from './cars-list'
+import { createControls } from './garage-controls'
+import { createForm } from './garage-form'
+import { createGarageInfo } from './garage-info'
 
-export function createGarageView(
-  cars: Car[],
-  page: number,
-  total: number,
-): HTMLDivElement {
+export function createGarageView({
+  cars,
+  page,
+  total,
+}: GarageViewProps): HTMLDivElement {
   const garage = document.createElement('div')
   garage.className = 'garage'
 
