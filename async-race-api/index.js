@@ -13,7 +13,7 @@ const db = {
             "id": 2,
         },
         {
-            "name": "Mersedes",
+            "name": "Mercedes",
             "color": "#6c779f",
             "id": 3,
         },
