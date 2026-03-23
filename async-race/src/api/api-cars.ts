@@ -37,7 +37,7 @@ export async function updateCar(
   color: string,
 ): Promise<Car> {
   const response = await fetch(`${API_URL}/garage/${id}`, {
-    method: 'PATCH',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
