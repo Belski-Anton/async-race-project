@@ -2,23 +2,31 @@ import './footer-view.css'
 
 export function createFooter(): HTMLElement {
   const footer = document.createElement('footer')
-  footer.classList.add('footer')
+  footer.className = 'footer'
 
-  const pagination = document.createElement('div')
-  pagination.classList.add('pagination')
+  const container = document.createElement('div')
+  container.className = 'footer-container'
 
-  const prevButton = document.createElement('button')
-  prevButton.type = 'button'
-  prevButton.classList.add('pagination-button')
-  prevButton.textContent = 'PREV'
+  const title = document.createElement('span')
+  title.textContent = '🚗 Async Race'
+  title.className = 'footer-title'
 
-  const nextButton = document.createElement('button')
-  nextButton.type = 'button'
-  nextButton.classList.add('pagination-button')
-  nextButton.textContent = 'NEXT'
+  const copyright = document.createElement('span')
+  copyright.textContent = `© ${new Date().getFullYear()}`
+  copyright.className = 'footer-copyright'
 
-  pagination.append(prevButton, nextButton)
-  footer.append(pagination)
+  const githubLink = document.createElement('a')
+  githubLink.href = 'https://github.com/your-repo/async-race'
+  githubLink.textContent = 'GitHub'
+  githubLink.target = '_blank'
+  githubLink.className = 'footer-link'
+
+  const version = document.createElement('span')
+  version.textContent = 'v1.0.0'
+  version.className = 'footer-version'
+
+  container.append(title, copyright, githubLink, version)
+  footer.append(container)
 
   return footer
 }

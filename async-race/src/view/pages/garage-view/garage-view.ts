@@ -29,6 +29,16 @@ export function createGarageView({
   const pagination = document.createElement('div')
   pagination.className = 'garage-pagination'
 
+  const prevButton = document.createElement('button')
+  prevButton.textContent = 'PREV'
+  prevButton.className = 'pagination-prev'
+
+  const nextButton = document.createElement('button')
+  nextButton.textContent = 'NEXT'
+  nextButton.className = 'pagination-next'
+
+  pagination.append(prevButton, nextButton)
+
   garage.append(
     title,
     info,
