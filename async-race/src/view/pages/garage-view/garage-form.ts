@@ -1,11 +1,8 @@
+import type { FormReturnType, FormType } from './types'
 export function createForm(
-  type: 'CREATE' | 'UPDATE',
+  type: FormType,
   onSubmit: (name: string, color: string) => void,
-): {
-  element: HTMLFormElement
-  nameInput: HTMLInputElement
-  colorInput: HTMLInputElement
-} {
+): FormReturnType {
   const form = document.createElement('form')
 
   const nameInput = document.createElement('input')

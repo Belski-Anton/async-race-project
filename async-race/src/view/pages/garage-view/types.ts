@@ -12,3 +12,17 @@ export type GarageViewProps = {
   total: number
   handlers: GaraViewHandlers
 }
+
+export type FormType = 'CREATE' | 'UPDATE'
+
+export type FormReturnType = {
+  element: HTMLFormElement
+  nameInput: HTMLInputElement
+  colorInput: HTMLInputElement
+}
+
+export type GarageViewReturnType = {
+  element: HTMLDivElement
+  updateFormEl: FormReturnType
+  createFormEl: FormReturnType
+}

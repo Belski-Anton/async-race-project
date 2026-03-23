@@ -1,5 +1,5 @@
 import './garage-view.css'
-import type { GarageViewProps } from './types'
+import type { GarageViewProps, GarageViewReturnType } from './types'
 
 import { createCarsList } from './cars-list'
 import { createControls } from './garage-controls'
@@ -11,19 +11,7 @@ export function createGarageView({
   page,
   total,
   handlers,
-}: GarageViewProps): {
-  element: HTMLDivElement
-  updateFormEl: {
-    element: HTMLFormElement
-    nameInput: HTMLInputElement
-    colorInput: HTMLInputElement
-  }
-  createFormEl: {
-    element: HTMLFormElement
-    nameInput: HTMLInputElement
-    colorInput: HTMLInputElement
-  }
-} {
+}: GarageViewProps): GarageViewReturnType {
   const garage = document.createElement('div')
   garage.className = 'garage'
 
