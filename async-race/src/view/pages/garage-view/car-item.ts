@@ -1,7 +1,10 @@
 import type { Car } from '@/model/car.model'
 import CarSVG from '@/assets/car.svg?raw'
 
-export function createCarItem(car: Car): HTMLDivElement {
+export function createCarItem(
+  car: Car,
+  onSelect: (car: Car) => void,
+): HTMLDivElement {
   const carItem = document.createElement('div')
   carItem.className = 'car-item'
 
@@ -11,7 +14,7 @@ export function createCarItem(car: Car): HTMLDivElement {
   const selectBtn = document.createElement('button')
   selectBtn.className = 'btn'
   selectBtn.textContent = 'SELECT'
-
+  selectBtn.onclick = () => onSelect(car)
   const removeBtn = document.createElement('button')
   removeBtn.className = 'btn'
   removeBtn.textContent = 'REMOVE'

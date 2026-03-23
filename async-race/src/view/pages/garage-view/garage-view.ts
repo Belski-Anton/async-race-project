@@ -10,7 +10,20 @@ export function createGarageView({
   cars,
   page,
   total,
-}: GarageViewProps): HTMLDivElement {
+  handlers,
+}: GarageViewProps): {
+  element: HTMLDivElement
+  updateFormEl: {
+    element: HTMLFormElement
+    nameInput: HTMLInputElement
+    colorInput: HTMLInputElement
+  }
+  createFormEl: {
+    element: HTMLFormElement
+    nameInput: HTMLInputElement
+    colorInput: HTMLInputElement
+  }
+} {
   const garage = document.createElement('div')
   garage.className = 'garage'
 
@@ -19,12 +32,11 @@ export function createGarageView({
 
   const info = createGarageInfo(page, total)
 
-  const createFormEl = createForm('CREATE')
-  const updateFormEl = createForm('UPDATE')
+  const createFormEl = createForm('CREATE', handlers.onCreate)
+  const updateFormEl = createForm('UPDATE', handlers.onUpdate)
 
   const controls = createControls()
-
-  const carsList = createCarsList(cars)
+  const carsList = createCarsList(cars, handlers.onSelect)
 
   const pagination = document.createElement('div')
   pagination.className = 'garage-pagination'
@@ -32,12 +44,16 @@ export function createGarageView({
   garage.append(
     title,
     info,
-    createFormEl,
-    updateFormEl,
+    createFormEl.element,
+    updateFormEl.element,
     controls,
     carsList,
     pagination,
   )
 
-  return garage
+  return {
+    element: garage,
+    updateFormEl,
+    createFormEl,
+  }
 }

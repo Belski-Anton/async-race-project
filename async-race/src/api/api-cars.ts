@@ -15,3 +15,39 @@ export async function getCars(
 
   return { items, total }
 }
+export async function createCar(name: string, color: string): Promise<Car> {
+  const response = await fetch(`${API_URL}/garage`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      color,
+    }),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to create car')
+  }
+  return response.json()
+}
+export async function updateCar(
+  id: number,
+  name: string,
+  color: string,
+): Promise<Car> {
+  const response = await fetch(`${API_URL}/garage/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      color,
+    }),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to create car')
+  }
+  return response.json()
+}
