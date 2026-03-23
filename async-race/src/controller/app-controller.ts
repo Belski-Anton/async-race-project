@@ -1,4 +1,4 @@
-import { createCar, getCars, updateCar } from '@/api/api-cars'
+import { createCar, getCars, updateCar, deleteCar } from '@/api/api-cars'
 import { CARS_PER_PAGE } from '@/constants/constants'
 import type { Car } from '@/model/car.model'
 import { createGarageView } from '@/view/pages/garage-view'
@@ -28,6 +28,15 @@ export class AppController {
         onUpdate: async (name: string, color: string) => {
           if (this.selectedCarId === null) return
           await updateCar(this.selectedCarId, name, color)
+          await this.showGarage()
+        },
+        onDelete: async (car: Car) => {
+          await deleteCar(car.id)
+          if (this.selectedCarId === car.id) {
+            this.selectedCarId = null
+            garage.updateFormEl.nameInput.value = ''
+            garage.updateFormEl.colorInput.value = '#000000'
+          }
           await this.showGarage()
         },
       },

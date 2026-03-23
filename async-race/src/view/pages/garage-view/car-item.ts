@@ -4,6 +4,7 @@ import CarSVG from '@/assets/car.svg?raw'
 export function createCarItem(
   car: Car,
   onSelect: (car: Car) => void,
+  onDelete: (car: Car) => void,
 ): HTMLDivElement {
   const carItem = document.createElement('div')
   carItem.className = 'car-item'
@@ -15,9 +16,11 @@ export function createCarItem(
   selectBtn.className = 'btn'
   selectBtn.textContent = 'SELECT'
   selectBtn.onclick = () => onSelect(car)
+
   const removeBtn = document.createElement('button')
   removeBtn.className = 'btn'
   removeBtn.textContent = 'REMOVE'
+  removeBtn.onclick = () => onDelete(car)
 
   const buttons = document.createElement('div')
   buttons.className = 'car-actions'
