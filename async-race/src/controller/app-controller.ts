@@ -14,7 +14,7 @@ export class AppController {
     const { items, total } = await getCars(this.currentPage, CARS_PER_PAGE)
     const garage = createGarageView({
       cars: items,
-      page: 1,
+      page: this.currentPage,
       total,
       handlers: {
         onCreate: async (name, color) => {

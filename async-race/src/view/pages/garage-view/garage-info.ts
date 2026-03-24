@@ -1,4 +1,8 @@
-export function createGarageInfo(page: number, total: number): HTMLDivElement {
+export function createGarageInfo(
+  page: number,
+  total: number,
+  carsOnPage: number,
+): HTMLDivElement {
   const garageInfo = document.createElement('div')
   garageInfo.className = 'garage-info'
 
@@ -6,7 +10,7 @@ export function createGarageInfo(page: number, total: number): HTMLDivElement {
   pageText.textContent = `Page #${page}`
 
   const countText = document.createElement('p')
-  countText.textContent = `Cars (${total})`
+  countText.textContent = `Cars: ${carsOnPage} of ${total}`
 
   garageInfo.append(pageText, countText)
 

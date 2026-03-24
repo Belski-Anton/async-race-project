@@ -1,21 +1,21 @@
 .header {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  padding: 12px 20px;
+  gap: 12px;
+  padding: 8px 16px;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  box-shadow: 0 4px 20px #0033;
+  box-shadow: 0 2px 10px #0033;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
 }
 
 .header-btn {
-  padding: 8px 20px;
-  font-size: 0.9rem;
+  padding: 6px 16px;
+  font-size: 0.8rem;
   font-weight: bold;
   border: none;
-  border-radius: 24px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
@@ -40,30 +40,30 @@
 }
 
 .header-btn:hover::before {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
 }
 
 .header-btn-garage {
   background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
   color: white;
-  box-shadow: 0 4px 15px #4caf504d;
+  box-shadow: 0 2px 10px #4caf504d;
 }
 
 .header-btn-garage:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px #4caf5066;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px #4caf5066;
 }
 
 .header-btn-winners {
   background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
   color: white;
-  box-shadow: 0 4px 15px #ff98004d;
+  box-shadow: 0 2px 10px #ff98004d;
 }
 
 .header-btn-winners:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px #ff980066;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px #ff980066;
 }
 
 .header-btn:active {
@@ -72,12 +72,12 @@
 
 @media (width <= 768px) {
   .header {
-    gap: 12px;
-    padding: 10px 16px;
+    gap: 8px;
+    padding: 6px 12px;
   }
 
   .header-btn {
-    padding: 6px 16px;
-    font-size: 0.8rem;
+    padding: 4px 12px;
+    font-size: 0.7rem;
   }
 }

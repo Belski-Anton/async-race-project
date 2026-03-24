@@ -18,7 +18,7 @@ export function createGarageView({
   const title = document.createElement('h2')
   title.textContent = 'Garage'
 
-  const info = createGarageInfo(page, total)
+  const info = createGarageInfo(page, total, cars.length)
 
   const createFormEl = createForm('CREATE', handlers.onCreate)
   const updateFormEl = createForm('UPDATE', handlers.onUpdate)

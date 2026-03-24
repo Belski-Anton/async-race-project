@@ -1,8 +1,8 @@
 .garage {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  gap: 12px;
+  padding: 10px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: auto;
@@ -10,7 +10,7 @@
 
 .garage h2 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: #2c3e50;
   text-align: center;
   text-shadow: 2px 2px 4px rgb(0 0 0 / 10%);
@@ -18,24 +18,24 @@
 
 .garage-info {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: bold;
   color: #34495e;
   background: #fffc;
-  padding: 8px 12px;
-  border-radius: 12px;
+  padding: 6px 10px;
+  border-radius: 10px;
   backdrop-filter: blur(5px);
 }
 
 .garage-form {
   display: flex;
-  gap: 12px;
+  gap: 6px;
   background: white;
-  padding: 12px 16px;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px #0000001a;
+  padding: 6px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px #0000001a;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -43,21 +43,21 @@
 
 .garage-form input[type='text'] {
   flex: 1;
-  padding: 8px 14px;
+  padding: 5px 8px;
   border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
   outline: none;
   background: #fafafa;
 }
 
 .garage-form input[type='color'] {
-  width: 44px;
-  height: 38px;
+  width: 32px;
+  height: 28px;
   border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 4px;
+  border-radius: 8px;
+  padding: 2px;
   cursor: pointer;
   transition: all 0.3s ease;
   background: white;
@@ -65,43 +65,69 @@
 
 .garage-controls {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   background: white;
-  padding: 10px 16px;
-  border-radius: 16px;
+  padding: 6px 12px;
+  border-radius: 12px;
   box-shadow: 0 2px 4px #0000001a;
+}
+
+.garage-form button {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: bold;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.garage-controls button {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  font-weight: bold;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .garage-list {
   min-height: auto;
   background: white;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 10px;
   box-shadow: 0 4px 6px #0000001a;
 }
 
 .car-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
+  gap: 5px;
+  padding: 8px 10px;
+  margin-bottom: 5px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 12px;
+  border-radius: 10px;
   transition: all 0.3s ease;
-  border-left: 4px solid #4caf50;
+  border-left: 3px solid #4caf50;
 }
 
 .car-top {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .car-name {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #2c3e50;
   text-shadow: 1px 1px 0 #0000000d;
 }
@@ -109,63 +135,37 @@
 .car-bottom {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
-}
-
-.garage-form button {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.garage-controls button {
-  padding: 6px 16px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .garage-pagination {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: center;
   margin-top: 4px;
   margin-bottom: 4px;
 }
 
 .garage-pagination button {
-  padding: 6px 20px;
+  padding: 5px 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .car-actions button {
-  padding: 4px 12px;
+  padding: 3px 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
   transition: all 0.2s ease;
 }
@@ -173,7 +173,7 @@
 .car-road {
   position: relative;
   flex: 1;
-  height: 45px;
+  height: 35px;
   background: repeating-linear-gradient(
     90deg,
     #ccc 0,
@@ -181,15 +181,20 @@
     #e0e0e0 20px,
     #e0e0e0 40px
   );
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
 
 .car-visual {
-  width: 70px;
+  width: 60px;
   transition: transform 0.1s linear;
+}
+
+.car-visual svg {
+  width: 100%;
+  height: auto;
 }
 
 .flag {
@@ -197,19 +202,19 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 28px;
+  font-size: 24px;
   filter: drop-shadow(2px 2px 2px #0000004d);
 }
 
 .engine-btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border: 2px solid #4caf50;
   background: #1a1a2e;
   color: #4caf50;
   font-weight: bold;
-  font-size: 0.9rem;
-  border-radius: 8px;
+  font-size: 0.8rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
