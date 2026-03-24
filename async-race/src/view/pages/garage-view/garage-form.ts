@@ -25,11 +25,7 @@ export function createForm(
 
   form.onsubmit = (e) => {
     e.preventDefault()
-    const name = nameInput.value.trim()
-    if (name) {
-      onSubmit(name, colorInput.value)
-      nameInput.value = ''
-    }
+    onSubmit(nameInput.value, colorInput.value)
   }
 
   return {

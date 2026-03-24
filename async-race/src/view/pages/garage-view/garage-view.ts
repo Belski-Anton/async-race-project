@@ -32,10 +32,12 @@ export function createGarageView({
   const prevButton = document.createElement('button')
   prevButton.textContent = 'PREV'
   prevButton.className = 'pagination-prev'
+  prevButton.onclick = () => handlers.onPrevPage?.()
 
   const nextButton = document.createElement('button')
   nextButton.textContent = 'NEXT'
   nextButton.className = 'pagination-next'
+  nextButton.onclick = () => handlers.onNextPage?.()
 
   pagination.append(prevButton, nextButton)
 

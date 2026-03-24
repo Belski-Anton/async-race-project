@@ -6,11 +6,12 @@ import { createWinnersView } from '@/view/pages/winners-view'
 export class AppController {
   private readonly container: HTMLElement
   private selectedCarId: number | null = null
+  private currentPage: number = 1
   public constructor(container: HTMLElement) {
     this.container = container
   }
   public async showGarage(): Promise<void> {
-    const { items, total } = await getCars(1, CARS_PER_PAGE)
+    const { items, total } = await getCars(this.currentPage, CARS_PER_PAGE)
     const garage = createGarageView({
       cars: items,
       page: 1,
@@ -38,6 +39,19 @@ export class AppController {
             garage.updateFormEl.colorInput.value = '#000000'
           }
           await this.showGarage()
+        },
+        onPrevPage: async () => {
+          if (this.currentPage > 1) {
+            this.currentPage--
+            await this.showGarage()
+          }
+        },
+        onNextPage: async () => {
+          const totalPage = Math.ceil(total / CARS_PER_PAGE)
+          if (this.currentPage < totalPage) {
+            this.currentPage++
+            await this.showGarage()
+          }
         },
       },
     })

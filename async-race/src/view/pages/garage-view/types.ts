@@ -5,6 +5,8 @@ export type GaraViewHandlers = {
   onUpdate: (name: string, color: string) => void
   onSelect: (car: Car) => void
   onDelete: (car: Car) => void
+  onNextPage: () => void
+  onPrevPage: () => void
 }
 export type GarageViewProps = {
   cars: Car[]
