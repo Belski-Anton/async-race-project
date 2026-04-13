@@ -1,18 +1,19 @@
-import type { Car } from '@/model/car.model'
+import type { Car, EngineResponse } from '@/model/car.model'
 
-export type GaraViewHandlers = {
-  onCreate: (name: string, color: string) => void
-  onUpdate: (name: string, color: string) => void
+export type GarageViewHandlers = {
+  onCreate: (name: string, color: string) => Promise<void>
+  onUpdate: (name: string, color: string) => Promise<void>
   onSelect: (car: Car) => void
   onDelete: (car: Car) => void
   onNextPage: () => void
   onPrevPage: () => void
+  onStart: (car: Car) => Promise<EngineResponse>
 }
 export type GarageViewProps = {
   cars: Car[]
   page: number
   total: number
-  handlers: GaraViewHandlers
+  handlers: GarageViewHandlers
 }
 
 export type FormType = 'CREATE' | 'UPDATE'

@@ -24,7 +24,12 @@ export function createGarageView({
   const updateFormEl = createForm('UPDATE', handlers.onUpdate)
 
   const controls = createControls()
-  const carsList = createCarsList(cars, handlers.onSelect, handlers.onDelete)
+  const carsList = createCarsList(
+    cars,
+    handlers.onSelect,
+    handlers.onDelete,
+    handlers.onStart,
+  )
 
   const pagination = document.createElement('div')
   pagination.className = 'garage-pagination'

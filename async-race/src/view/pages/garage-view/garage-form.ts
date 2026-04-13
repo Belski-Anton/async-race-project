@@ -2,7 +2,7 @@ import type { FormReturnType, FormType } from './types'
 
 export function createForm(
   type: FormType,
-  onSubmit: (name: string, color: string) => void,
+  onSubmit: (name: string, color: string) => Promise<void>,
 ): FormReturnType {
   const form = document.createElement('form')
   form.className = 'garage-form'
@@ -23,11 +23,15 @@ export function createForm(
 
   form.append(nameInput, colorInput, button)
 
-  form.onsubmit = (e) => {
+  form.onsubmit = async (e) => {
     e.preventDefault()
-    onSubmit(nameInput.value, colorInput.value)
+    try {
+      await onSubmit(nameInput.value, colorInput.value)
+      nameInput.value = ''
+    } catch {
+      console.error('Failed to submit form')
+    }
   }
-
   return {
     element: form,
     nameInput,

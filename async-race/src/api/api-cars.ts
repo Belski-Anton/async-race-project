@@ -1,5 +1,5 @@
 import { API_URL } from '@/constants/constants'
-import type { Car } from '@/model/car.model'
+import type { Car, EngineResponse, EngineStatus } from '@/model/car.model'
 export async function getCars(
   page: number,
   limit: number,
@@ -60,4 +60,18 @@ export async function deleteCar(id: number): Promise<void> {
   if (!response.ok) {
     throw new Error('Failed to delete car')
   }
+}
+
+export async function controlEngine(
+  id: number,
+  status: EngineStatus,
+): Promise<EngineResponse> {
+  const response = await fetch(`${API_URL}/engine?id=${id}&status=${status}`, {
+    method: 'PATCH',
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to ${status} engine for car ${id}`)
+  }
+  return response.json()
 }

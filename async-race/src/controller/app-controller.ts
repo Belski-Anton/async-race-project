@@ -1,6 +1,12 @@
-import { createCar, getCars, updateCar, deleteCar } from '@/api/api-cars'
+import {
+  createCar,
+  getCars,
+  updateCar,
+  deleteCar,
+  controlEngine,
+} from '@/api/api-cars'
 import { CARS_PER_PAGE } from '@/constants/constants'
-import type { Car } from '@/model/car.model'
+import type { Car, EngineResponse } from '@/model/car.model'
 import { createGarageView } from '@/view/pages/garage-view'
 import { createWinnersView } from '@/view/pages/winners-view'
 export class AppController {
@@ -52,6 +58,9 @@ export class AppController {
             this.currentPage++
             await this.showGarage()
           }
+        },
+        onStart: async (car: Car): Promise<EngineResponse> => {
+          return await controlEngine(car.id, 'started')
         },
       },
     })

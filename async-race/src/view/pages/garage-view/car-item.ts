@@ -1,10 +1,13 @@
-import type { Car } from '@/model/car.model'
+import type { Car, EngineResponse } from '@/model/car.model'
+import { controlEngine } from '@/api/api-cars'
+import { animateCar } from './animate-car'
 import CarSVG from '@/assets/car.svg?raw'
 
 export function createCarItem(
   car: Car,
   onSelect: (car: Car) => void,
   onDelete: (car: Car) => void,
+  onStart: (car: Car) => Promise<EngineResponse>,
 ): HTMLDivElement {
   const carItem = document.createElement('div')
   carItem.className = 'car-item'
@@ -46,6 +49,27 @@ export function createCarItem(
   stopBtn.textContent = 'B'
   stopBtn.className = 'engine-btn'
   stopBtn.disabled = true
+
+  startBtn.onclick = async () => {
+    startBtn.disabled = true
+    stopBtn.disabled = false
+
+    let animationId = 0
+
+    try {
+      const { velocity, distance } = await onStart(car)
+      const duration = distance / velocity
+      const roadWidth = road.getBoundingClientRect().width
+
+      animationId = animateCar(carImg, duration, roadWidth)
+
+      await controlEngine(car.id, 'drive')
+    } catch {
+      cancelAnimationFrame(animationId)
+      startBtn.disabled = false
+      stopBtn.disabled = true
+    }
+  }
 
   engineButtons.append(startBtn, stopBtn)
 
