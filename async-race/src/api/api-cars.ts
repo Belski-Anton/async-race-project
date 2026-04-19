@@ -71,7 +71,9 @@ export async function controlEngine(
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to ${status} engine for car ${id}`)
+    // throw new Error(`Failed to ${status} engine for car ${id}`)
+    const message = await response.text()
+    throw new Error(message)
   }
   return response.json()
 }

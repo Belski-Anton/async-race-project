@@ -23,10 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     /* Aliases */
-    "baseUrl": ".", // добавлено для алиасов
-    "paths": {
-      "@/*": ["src/*"] // создаём алиас для src
-    }
+    "paths": { "@/*": ["./src/*"] }
   },
 
   "include": ["src"]

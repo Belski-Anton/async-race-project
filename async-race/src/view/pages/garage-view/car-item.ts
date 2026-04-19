@@ -1,7 +1,7 @@
-import type { Car, EngineResponse } from '@/model/car.model'
 import { controlEngine } from '@/api/api-cars'
-import { animateCar } from './animate-car'
 import CarSVG from '@/assets/car.svg?raw'
+import type { Car, EngineResponse } from '@/model/car.model'
+import { animateCar } from './animate-car'
 
 export function createCarItem(
   car: Car,
@@ -54,18 +54,25 @@ export function createCarItem(
     startBtn.disabled = true
     stopBtn.disabled = false
 
-    let animationId = 0
+    let animation: { stop: () => void } | null = null
 
     try {
       const { velocity, distance } = await onStart(car)
       const duration = distance / velocity
       const roadWidth = road.getBoundingClientRect().width
 
-      animationId = animateCar(carImg, duration, roadWidth)
+      animation = animateCar(carImg, duration, roadWidth)
 
       await controlEngine(car.id, 'drive')
-    } catch {
-      cancelAnimationFrame(animationId)
+    } catch (error: unknown) {
+      animation?.stop()
+
+      if (error instanceof Error) {
+        console.log(error.message)
+      } else {
+        console.log(String(error))
+      }
+
       startBtn.disabled = false
       stopBtn.disabled = true
     }
