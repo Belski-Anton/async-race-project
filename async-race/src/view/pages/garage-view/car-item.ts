@@ -50,11 +50,13 @@ export function createCarItem(
   stopBtn.className = 'engine-btn'
   stopBtn.disabled = true
 
+  let animation: { stop: () => void } | null = null
+  let needsReset = false
+
   startBtn.onclick = async () => {
     startBtn.disabled = true
     stopBtn.disabled = false
-
-    let animation: { stop: () => void } | null = null
+    needsReset = false
 
     try {
       const { velocity, distance } = await onStart(car)
@@ -64,8 +66,12 @@ export function createCarItem(
       animation = animateCar(carImg, duration, roadWidth)
 
       await controlEngine(car.id, 'drive')
+
+      needsReset = true
     } catch (error: unknown) {
       animation?.stop()
+      animation = null
+      needsReset = true
 
       if (error instanceof Error) {
         console.log(error.message)
@@ -73,8 +79,25 @@ export function createCarItem(
         console.log(String(error))
       }
 
+      startBtn.disabled = true
+      stopBtn.disabled = false
+    }
+  }
+
+  stopBtn.onclick = async () => {
+    if (needsReset) {
+      carImg.style.transform = 'translateX(0)'
+      needsReset = false
       startBtn.disabled = false
       stopBtn.disabled = true
+    } else {
+      animation?.stop()
+      animation = null
+      await controlEngine(car.id, 'stopped')
+      needsReset = true
+      startBtn.disabled = true
+      stopBtn.disabled = false
+      return
     }
   }
 
