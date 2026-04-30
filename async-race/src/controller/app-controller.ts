@@ -1,9 +1,9 @@
 import {
+  controlEngine,
   createCar,
+  deleteCar,
   getCars,
   updateCar,
-  deleteCar,
-  controlEngine,
 } from '@/api/api-cars'
 import { CARS_PER_PAGE } from '@/constants/constants'
 import type { Car, EngineResponse } from '@/model/car.model'
@@ -61,6 +61,11 @@ export class AppController {
         },
         onStart: async (car: Car): Promise<EngineResponse> => {
           return await controlEngine(car.id, 'started')
+        },
+        onRace: () => {
+          garage.carsControllers.forEach((controller) => {
+            controller.start()
+          })
         },
       },
     })

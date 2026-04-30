@@ -3,12 +3,20 @@ import CarSVG from '@/assets/car.svg?raw'
 import type { Car, EngineResponse } from '@/model/car.model'
 import { animateCar } from './animate-car'
 
+export interface CarController {
+  element: HTMLDivElement
+  start: () => Promise<void>
+  stop: () => void
+  reset: () => void
+  getId: () => number
+}
+
 export function createCarItem(
   car: Car,
   onSelect: (car: Car) => void,
   onDelete: (car: Car) => void,
   onStart: (car: Car) => Promise<EngineResponse>,
-): HTMLDivElement {
+): CarController {
   const carItem = document.createElement('div')
   carItem.className = 'car-item'
 
@@ -53,7 +61,21 @@ export function createCarItem(
   let animation: { stop: () => void } | null = null
   let needsReset = false
 
-  startBtn.onclick = async () => {
+  const road = document.createElement('div')
+  road.className = 'car-road'
+
+  const carImg = document.createElement('div')
+  carImg.className = 'car-visual'
+  carImg.innerHTML = CarSVG
+  carImg.style.color = car.color
+
+  const flag = document.createElement('div')
+  flag.className = 'flag'
+  flag.textContent = '🏴'
+
+  road.append(carImg, flag)
+
+  const start = async () => {
     startBtn.disabled = true
     stopBtn.disabled = false
     needsReset = false
@@ -84,7 +106,7 @@ export function createCarItem(
     }
   }
 
-  stopBtn.onclick = async () => {
+  const stop = () => {
     if (needsReset) {
       carImg.style.transform = 'translateX(0)'
       needsReset = false
@@ -93,33 +115,36 @@ export function createCarItem(
     } else {
       animation?.stop()
       animation = null
-      await controlEngine(car.id, 'stopped')
+      controlEngine(car.id, 'stopped')
       needsReset = true
       startBtn.disabled = true
       stopBtn.disabled = false
-      return
     }
   }
 
+  const reset = () => {
+    animation?.stop()
+    animation = null
+    carImg.style.transform = 'translateX(0)'
+    needsReset = false
+    startBtn.disabled = false
+    stopBtn.disabled = true
+  }
+
+  const getId = () => car.id
+
+  startBtn.onclick = start
+  stopBtn.onclick = stop
+
   engineButtons.append(startBtn, stopBtn)
-
-  const road = document.createElement('div')
-  road.className = 'car-road'
-
-  const carImg = document.createElement('div')
-  carImg.className = 'car-visual'
-  carImg.innerHTML = CarSVG
-  carImg.style.color = car.color
-
-  const flag = document.createElement('div')
-  flag.className = 'flag'
-  flag.textContent = '🏴'
-
-  road.append(carImg, flag)
-
   carBottom.append(engineButtons, road)
-
   carItem.append(carTop, carBottom)
 
-  return carItem
+  return {
+    element: carItem,
+    start,
+    stop,
+    reset,
+    getId,
+  }
 }

@@ -1,19 +1,25 @@
 import type { Car, EngineResponse } from '@/model/car.model'
-import { createCarItem } from './car-item'
+import { createCarItem, type CarController } from './car-item'
 
 export function createCarsList(
   cars: Car[],
   onSelect: (car: Car) => void,
   onDelete: (car: Car) => void,
   onStart: (car: Car) => Promise<EngineResponse>,
-): HTMLDivElement {
+): { element: HTMLDivElement; controllers: CarController[] } {
   const carsList = document.createElement('div')
   carsList.className = 'garage-list'
 
+  const controllers: CarController[] = []
+
   cars.forEach((car) => {
-    const carItem = createCarItem(car, onSelect, onDelete, onStart)
-    carsList.append(carItem)
+    const carController = createCarItem(car, onSelect, onDelete, onStart)
+    carsList.append(carController.element)
+    controllers.push(carController)
   })
 
-  return carsList
+  return {
+    element: carsList,
+    controllers: controllers,
+  }
 }

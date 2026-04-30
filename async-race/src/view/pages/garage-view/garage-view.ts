@@ -23,7 +23,7 @@ export function createGarageView({
   const createFormEl = createForm('CREATE', handlers.onCreate)
   const updateFormEl = createForm('UPDATE', handlers.onUpdate)
 
-  const controls = createControls()
+  const controls = createControls(handlers.onRace)
   const carsList = createCarsList(
     cars,
     handlers.onSelect,
@@ -52,7 +52,7 @@ export function createGarageView({
     createFormEl.element,
     updateFormEl.element,
     controls,
-    carsList,
+    carsList.element,
     pagination,
   )
 
@@ -60,5 +60,6 @@ export function createGarageView({
     element: garage,
     updateFormEl,
     createFormEl,
+    carsControllers: carsList.controllers,
   }
 }

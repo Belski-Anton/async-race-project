@@ -1,10 +1,12 @@
-export function createControls(): HTMLDivElement {
+export function createControls(onStart: () => void): HTMLDivElement {
   const controls = document.createElement('div')
   controls.className = 'garage-controls'
 
   const raceButton = document.createElement('button')
   raceButton.type = 'button'
   raceButton.textContent = 'RACE'
+
+  raceButton.onclick = () => onStart()
 
   const resetButton = document.createElement('button')
   resetButton.type = 'button'
