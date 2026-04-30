@@ -1,5 +1,4 @@
 import type { Car, EngineResponse } from '@/model/car.model'
-import type { CarController } from './car-item'
 export type GarageViewHandlers = {
   onCreate: (name: string, color: string) => Promise<void>
   onUpdate: (name: string, color: string) => Promise<void>
@@ -30,4 +29,12 @@ export type GarageViewReturnType = {
   updateFormEl: FormReturnType
   createFormEl: FormReturnType
   carsControllers: CarController[]
+}
+
+export interface CarController {
+  element: HTMLDivElement
+  start: () => Promise<void>
+  stop: () => void
+  reset: () => void
+  getId: () => number
 }

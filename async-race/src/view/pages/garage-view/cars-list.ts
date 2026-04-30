@@ -1,6 +1,6 @@
 import type { Car, EngineResponse } from '@/model/car.model'
-import { createCarItem, type CarController } from './car-item'
-
+import { createCarItem } from './car-item'
+import type { CarController } from './types'
 export function createCarsList(
   cars: Car[],
   onSelect: (car: Car) => void,

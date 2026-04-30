@@ -1,15 +1,8 @@
 import { controlEngine } from '@/api/api-cars'
 import CarSVG from '@/assets/car.svg?raw'
 import type { Car, EngineResponse } from '@/model/car.model'
+import type { CarController } from './types'
 import { animateCar } from './animate-car'
-
-export interface CarController {
-  element: HTMLDivElement
-  start: () => Promise<void>
-  stop: () => void
-  reset: () => void
-  getId: () => number
-}
 
 export function createCarItem(
   car: Car,
