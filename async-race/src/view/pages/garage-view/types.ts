@@ -7,7 +7,7 @@ export type GarageViewHandlers = {
   onNextPage: () => void
   onPrevPage: () => void
   onStart: (car: Car) => Promise<EngineResponse>
-  onRace: () => void
+  onRace: (controllers: CarController[]) => Promise<void>
 }
 export type GarageViewProps = {
   cars: Car[]

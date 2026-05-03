@@ -1,5 +1,5 @@
 import './garage-view.css'
-import type { GarageViewProps, GarageViewReturnType } from './types'
+import type { GarageViewProps } from './types'
 
 import { createCarsList } from './cars-list'
 import { createControls } from './garage-controls'
@@ -11,7 +11,7 @@ export function createGarageView({
   page,
   total,
   handlers,
-}: GarageViewProps): GarageViewReturnType {
+}: GarageViewProps): HTMLElement {
   const garage = document.createElement('div')
   garage.className = 'garage'
 
@@ -23,13 +23,18 @@ export function createGarageView({
   const createFormEl = createForm('CREATE', handlers.onCreate)
   const updateFormEl = createForm('UPDATE', handlers.onUpdate)
 
-  const controls = createControls(handlers.onRace)
   const carsList = createCarsList(
     cars,
-    handlers.onSelect,
+    (car) => {
+      updateFormEl.nameInput.value = car.name
+      updateFormEl.colorInput.value = car.color
+      handlers.onSelect(car)
+    },
     handlers.onDelete,
     handlers.onStart,
   )
+
+  const controls = createControls(() => handlers.onRace(carsList.controllers))
 
   const pagination = document.createElement('div')
   pagination.className = 'garage-pagination'
@@ -56,10 +61,5 @@ export function createGarageView({
     pagination,
   )
 
-  return {
-    element: garage,
-    updateFormEl,
-    createFormEl,
-    carsControllers: carsList.controllers,
-  }
+  return garage
 }
