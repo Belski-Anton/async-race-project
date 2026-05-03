@@ -83,11 +83,11 @@ export function createCarItem(
       await controlEngine(car.id, 'drive')
 
       needsReset = true
+      return { id: car.id, duration, velocity }
     } catch (error: unknown) {
       animation?.stop()
       animation = null
       needsReset = true
-
       if (error instanceof Error) {
         console.log(error.message)
       } else {
@@ -96,6 +96,7 @@ export function createCarItem(
 
       startBtn.disabled = true
       stopBtn.disabled = false
+      throw error
     }
   }
 

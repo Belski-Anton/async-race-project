@@ -8,6 +8,7 @@ import {
 import { CARS_PER_PAGE } from '@/constants/constants'
 import type { Car, EngineResponse } from '@/model/car.model'
 import { createGarageView } from '@/view/pages/garage-view'
+import { showPopup } from '@/view/pages/garage-view/popup'
 import { createWinnersView } from '@/view/pages/winners-view'
 export class AppController {
   private readonly container: HTMLElement
@@ -62,10 +63,21 @@ export class AppController {
         onStart: async (car: Car): Promise<EngineResponse> => {
           return await controlEngine(car.id, 'started')
         },
-        onRace: () => {
-          garage.carsControllers.forEach((controller) => {
-            controller.start()
-          })
+        onRace: async () => {
+          const promises = garage.carsControllers.map((controller) =>
+            controller.start(),
+          )
+
+          try {
+            const winner = await Promise.any(promises)
+            const winnerName = items.find((car) => car.id === winner.id)?.name
+            showPopup(
+              `${winnerName} went first (${winner.duration.toFixed(2)}s)!`,
+              'success',
+            )
+          } catch {
+            showPopup('💥 Все машины сломались!', 'error')
+          }
         },
       },
     })

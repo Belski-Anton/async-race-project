@@ -218,3 +218,63 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
+.garage-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 10000;
+  box-shadow: 0 4px 15px #0000004d;
+  animation: slide-in 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.garage-popup:hover {
+  transform: scale(1.02);
+}
+
+.garage-popup.success {
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+  color: #1a1a2e;
+  border-left: 5px solid #2ecc71;
+}
+
+.garage-popup.error {
+  background: linear-gradient(135deg, hsl(0deg 100% 63%), hsl(0deg 100% 40%));
+  color: white;
+  border-left: 5px solid #ff9800;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.garage-popup.exit {
+  animation: slide-out 0.3s ease;
+}

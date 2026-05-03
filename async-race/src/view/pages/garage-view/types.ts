@@ -33,7 +33,7 @@ export type GarageViewReturnType = {
 
 export interface CarController {
   element: HTMLDivElement
-  start: () => Promise<void>
+  start: () => Promise<{ id: number; duration: number; velocity: number }>
   stop: () => void
   reset: () => void
   getId: () => number
