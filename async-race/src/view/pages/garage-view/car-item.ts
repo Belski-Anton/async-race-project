@@ -1,14 +1,14 @@
 import { controlEngine } from '@/api/api-cars'
 import CarSVG from '@/assets/car.svg?raw'
-import type { Car, EngineResponse } from '@/model/car.model'
-import type { CarController } from './types'
+import type { Car } from '@/model/car.model'
+import type { CarController, EngineStartData } from './types'
 import { animateCar } from './animate-car'
 
 export function createCarItem(
   car: Car,
   onSelect: (car: Car) => void,
   onDelete: (car: Car) => void,
-  onStart: (car: Car) => Promise<EngineResponse>,
+  onStart: (car: Car) => Promise<EngineStartData>,
 ): CarController {
   const carItem = document.createElement('div')
   carItem.className = 'car-item'

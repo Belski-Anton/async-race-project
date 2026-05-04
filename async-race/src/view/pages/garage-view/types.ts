@@ -1,4 +1,13 @@
-import type { Car, EngineResponse } from '@/model/car.model'
+import type { Car } from '@/model/car.model'
+export type EngineStartData = {
+  velocity: number
+  distance: number
+}
+export type RaceResult = {
+  id: number
+  duration: number
+  velocity: number
+}
 export type GarageViewHandlers = {
   onCreate: (name: string, color: string) => Promise<void>
   onUpdate: (name: string, color: string) => Promise<void>
@@ -6,34 +15,12 @@ export type GarageViewHandlers = {
   onDelete: (car: Car) => void
   onNextPage: () => void
   onPrevPage: () => void
-  onStart: (car: Car) => Promise<EngineResponse>
+  onStart: (car: Car) => Promise<EngineStartData>
   onRace: (controllers: CarController[]) => Promise<void>
 }
-export type GarageViewProps = {
-  cars: Car[]
-  page: number
-  total: number
-  handlers: GarageViewHandlers
-}
-
-export type FormType = 'CREATE' | 'UPDATE'
-
-export type FormReturnType = {
-  element: HTMLFormElement
-  nameInput: HTMLInputElement
-  colorInput: HTMLInputElement
-}
-
-export type GarageViewReturnType = {
-  element: HTMLDivElement
-  updateFormEl: FormReturnType
-  createFormEl: FormReturnType
-  carsControllers: CarController[]
-}
-
 export interface CarController {
   element: HTMLDivElement
-  start: () => Promise<{ id: number; duration: number; velocity: number }>
+  start: () => Promise<RaceResult>
   stop: () => void
   reset: () => void
   getId: () => number

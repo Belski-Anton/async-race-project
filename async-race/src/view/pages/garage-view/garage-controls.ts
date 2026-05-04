@@ -6,7 +6,11 @@ export function createControls(onStart: () => void): HTMLDivElement {
   raceButton.type = 'button'
   raceButton.textContent = 'RACE'
 
-  raceButton.onclick = () => onStart()
+  raceButton.onclick = async () => {
+    raceButton.disabled = true
+    await onStart()
+    resetButton.disabled = false
+  }
 
   const resetButton = document.createElement('button')
   resetButton.type = 'button'
