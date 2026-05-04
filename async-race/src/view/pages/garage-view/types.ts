@@ -26,6 +26,7 @@ export type GarageViewHandlers = {
   onStart: (car: Car) => Promise<EngineStartData>
   onRace: (controllers: CarController[]) => Promise<void>
   onReset: (controllers: CarController[]) => Promise<void>
+  onGenerationCars: () => Promise<void>
 }
 export interface CarController {
   element: HTMLDivElement

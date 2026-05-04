@@ -1,6 +1,7 @@
 export function createControls(
   onStart: () => void,
   onReset: () => void,
+  onGenerationCars: () => void,
 ): HTMLDivElement {
   const controls = document.createElement('div')
   controls.className = 'garage-controls'
@@ -30,6 +31,7 @@ export function createControls(
   const generateButton = document.createElement('button')
   generateButton.type = 'button'
   generateButton.textContent = 'GENERATE CARS'
+  generateButton.onclick = () => onGenerationCars()
 
   controls.append(raceButton, resetButton, generateButton)
 

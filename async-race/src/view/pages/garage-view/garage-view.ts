@@ -37,6 +37,7 @@ export function createGarageView({
   const controls = createControls(
     () => handlers.onRace(carsList.controllers),
     () => handlers.onReset(carsList.controllers),
+    () => handlers.onGenerationCars(),
   )
 
   const pagination = document.createElement('div')

@@ -11,6 +11,8 @@ import type { CarController } from '@/view/pages/garage-view/types'
 import { createGarageView } from '@/view/pages/garage-view'
 import { showPopup } from '@/view/pages/garage-view/popup'
 import { createWinnersView } from '@/view/pages/winners-view'
+import { getRandomColor, getRandomElement } from '@/utils/random'
+import { BRANDS, MODELS } from '@/constants/car-names'
 
 export class AppController {
   private readonly container: HTMLElement
@@ -95,6 +97,15 @@ export class AppController {
           controllers.map((c) => controlEngine(c.getId(), 'stopped')),
         )
         controllers.forEach((c) => c.reset())
+      },
+      onGenerationCars: async () => {
+        const cars = Array.from({ length: 100 }, () => ({
+          name: `${getRandomElement(BRANDS)} ${getRandomElement(MODELS)}`,
+          color: getRandomColor(),
+        }))
+
+        await Promise.all(cars.map((car) => createCar(car.name, car.color)))
+        await this.showGarage()
       },
     }
   }
