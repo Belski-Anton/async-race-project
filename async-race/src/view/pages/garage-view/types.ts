@@ -1,4 +1,12 @@
 import type { Car } from '@/model/car.model'
+
+export type GarageViewProps = {
+  cars: Car[]
+  page: number
+  total: number
+  handlers: GarageViewHandlers
+}
+
 export type EngineStartData = {
   velocity: number
   distance: number
@@ -17,6 +25,7 @@ export type GarageViewHandlers = {
   onPrevPage: () => void
   onStart: (car: Car) => Promise<EngineStartData>
   onRace: (controllers: CarController[]) => Promise<void>
+  onReset: (controllers: CarController[]) => Promise<void>
 }
 export interface CarController {
   element: HTMLDivElement

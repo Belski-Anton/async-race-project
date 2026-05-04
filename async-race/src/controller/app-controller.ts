@@ -88,6 +88,13 @@ export class AppController {
         } catch {
           showPopup('💥 Все машины сломались!', 'error')
         }
+        await Promise.allSettled(promises)
+      },
+      onReset: async (controllers: CarController[]) => {
+        await Promise.all(
+          controllers.map((c) => controlEngine(c.getId(), 'stopped')),
+        )
+        controllers.forEach((c) => c.reset())
       },
     }
   }

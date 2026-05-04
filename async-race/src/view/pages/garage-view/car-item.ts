@@ -1,8 +1,7 @@
-import { controlEngine } from '@/api/api-cars'
 import CarSVG from '@/assets/car.svg?raw'
 import type { Car } from '@/model/car.model'
 import type { CarController, EngineStartData } from './types'
-import { animateCar } from './animate-car'
+import { createCarEngine } from './car-engine'
 
 export function createCarItem(
   car: Car,
@@ -51,9 +50,6 @@ export function createCarItem(
   stopBtn.className = 'engine-btn'
   stopBtn.disabled = true
 
-  let animation: { stop: () => void } | null = null
-  let needsReset = false
-
   const road = document.createElement('div')
   road.className = 'car-road'
 
@@ -68,62 +64,14 @@ export function createCarItem(
 
   road.append(carImg, flag)
 
-  const start = async () => {
-    startBtn.disabled = true
-    stopBtn.disabled = false
-    needsReset = false
-
-    try {
-      const { velocity, distance } = await onStart(car)
-      const duration = distance / velocity
-      const roadWidth = road.getBoundingClientRect().width
-
-      animation = animateCar(carImg, duration, roadWidth)
-
-      await controlEngine(car.id, 'drive')
-
-      needsReset = true
-      return { id: car.id, duration, velocity }
-    } catch (error: unknown) {
-      animation?.stop()
-      animation = null
-      needsReset = true
-      if (error instanceof Error) {
-        console.log(error.message)
-      } else {
-        console.log(String(error))
-      }
-
-      startBtn.disabled = true
-      stopBtn.disabled = false
-      throw error
-    }
-  }
-
-  const stop = () => {
-    if (needsReset) {
-      carImg.style.transform = 'translateX(0)'
-      needsReset = false
-      startBtn.disabled = false
-      stopBtn.disabled = true
-    } else {
-      animation?.stop()
-      animation = null
-      controlEngine(car.id, 'stopped')
-      needsReset = true
-      startBtn.disabled = true
-      stopBtn.disabled = false
-    }
-  }
-
-  const reset = () => {
-    animation?.stop()
-    animation = null
-    carImg.style.transform = 'translateX(0)'
-    needsReset = false
-    startBtn.disabled = false
-    stopBtn.disabled = true
-  }
+  const { start, stop, reset } = createCarEngine(
+    car,
+    carImg,
+    road,
+    startBtn,
+    stopBtn,
+    onStart,
+  )
 
   const getId = () => car.id
 
@@ -134,11 +82,5 @@ export function createCarItem(
   carBottom.append(engineButtons, road)
   carItem.append(carTop, carBottom)
 
-  return {
-    element: carItem,
-    start,
-    stop,
-    reset,
-    getId,
-  }
+  return { element: carItem, start, stop, reset, getId }
 }
