@@ -75,7 +75,10 @@ export function createCarItem(
 
   const getId = () => car.id
 
-  startBtn.onclick = start
+  startBtn.onclick = () => {
+    start().catch(() => {})
+  }
+
   stopBtn.onclick = stop
 
   engineButtons.append(startBtn, stopBtn)

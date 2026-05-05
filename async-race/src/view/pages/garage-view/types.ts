@@ -1,5 +1,13 @@
 import type { Car } from '@/model/car.model'
 
+export type FormType = 'CREATE' | 'UPDATE'
+
+export interface FormReturnType {
+  element: HTMLFormElement
+  nameInput: HTMLInputElement
+  colorInput: HTMLInputElement
+}
+
 export type GarageViewProps = {
   cars: Car[]
   page: number
