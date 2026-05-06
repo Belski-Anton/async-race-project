@@ -251,6 +251,12 @@
   border-left: 5px solid #ff9800;
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(50%);
+}
+
 @keyframes slide-in {
   from {
     transform: translateX(100%);
