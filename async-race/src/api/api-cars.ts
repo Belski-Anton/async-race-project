@@ -1,5 +1,14 @@
 import { API_URL } from '@/constants/constants'
 import type { Car, EngineResponse, EngineStatus } from '@/model/car.model'
+
+export async function getCar(id: number): Promise<Car> {
+  const response = await fetch(`${API_URL}/garage/${id}`)
+  if (!response.ok) {
+    throw new Error('')
+  }
+  return response.json()
+}
+
 export async function getCars(
   page: number,
   limit: number,
