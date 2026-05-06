@@ -13,6 +13,7 @@ import { showPopup } from '@/view/pages/garage-view/popup'
 import { createWinnersView } from '@/view/pages/winners-view'
 import { getRandomColor, getRandomElement } from '@/utils/random'
 import { BRANDS, MODELS } from '@/constants/car-names'
+import { createWinner, getWinner, updateWinner } from '@/api/api-winners'
 
 export class AppController {
   private readonly container: HTMLElement
@@ -53,6 +54,24 @@ export class AppController {
     this.render(createWinnersView())
   }
 
+  private async saveWinner(id: number, duration: number) {
+    try {
+      const existingWinner = await getWinner(id)
+      if (existingWinner) {
+        await updateWinner(id, {
+          id: id,
+          wins: existingWinner.wins + 1,
+          time: Math.min(existingWinner.time, duration),
+        })
+      }
+    } catch {
+      await createWinner({
+        id: id,
+        wins: 1,
+        time: duration,
+      })
+    }
+  }
   private buildHandlers() {
     return {
       onCreate: async (name: string, color: string) => {
@@ -83,6 +102,7 @@ export class AppController {
           const winnerName = this.currentItems.find(
             (c) => c.id === winner.id,
           )?.name
+          await this.saveWinner(winner.id, winner.duration)
           showPopup(
             `${winnerName} went first (${winner.duration.toFixed(2)}s)!`,
             'success',
