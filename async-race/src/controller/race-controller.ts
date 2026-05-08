@@ -1,29 +1,14 @@
 import { controlEngine } from '@/api/api-cars'
-import { createWinner, getWinner, updateWinner } from '@/api/api-winners'
 import type { Car, EngineResponse } from '@/model/car.model'
 import type { CarController } from '@/view/pages/garage-view/types'
 import { showPopup } from '@/view/pages/garage-view/popup'
+import { saveWinner } from '@/services/winner-service'
 
 export class RaceController {
   private readonly getCurrentItems: () => Car[]
 
   public constructor(getCurrentItems: () => Car[]) {
     this.getCurrentItems = getCurrentItems
-  }
-
-  private async saveWinner(id: number, duration: number): Promise<void> {
-    try {
-      const existing = await getWinner(id)
-      if (existing) {
-        await updateWinner(id, {
-          id,
-          wins: existing.wins + 1,
-          time: Math.min(existing.time, duration),
-        })
-      }
-    } catch {
-      await createWinner({ id, wins: 1, time: duration })
-    }
   }
 
   public buildHandlers() {
@@ -38,7 +23,7 @@ export class RaceController {
           const winnerName = this.getCurrentItems().find(
             (c) => c.id === winner.id,
           )?.name
-          await this.saveWinner(winner.id, winner.duration)
+          await saveWinner(winner.id, winner.duration)
           showPopup(
             `${winnerName} went first (${winner.duration.toFixed(2)}s)!`,
             'success',

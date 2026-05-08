@@ -4,50 +4,51 @@
   gap: 16px;
   padding: 16px;
   font-family: sans-serif;
+  color: white;
 }
 
 .winners h2 {
   margin: 0;
-  color: #333;
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: lab(3.02% 0 0);
 }
 
-.winners-list {
-  min-height: 100px;
-  border: 1px dashed #ccc;
-  padding: 10px;
-  border-radius: 4px;
-  background: #fafafa;
+.winners-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #111;
+  border: 1px solid #444;
 }
 
-.winners-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px;
-  margin-bottom: 8px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+.winners-table thead {
+  background-color: #1d4ed8;
 }
 
-.winners-item:last-child {
-  margin-bottom: 0;
-}
-
-.winners-car-color {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #999;
-}
-
-.winners-car-name {
-  flex: 1;
-  font-weight: 500;
-}
-
-.winners-wins {
-  color: #666;
+.winners-table th {
+  padding: 10px 14px;
+  text-align: left;
   font-size: 14px;
+  font-weight: 600;
+  color: white;
+  border-bottom: 1px solid #444;
+}
+
+.winners-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #333;
+  color: #e5e5e5;
+  font-size: 14px;
+}
+
+.winners-table tbody tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+.winners-table tbody tr:hover {
+  background-color: #262626;
+}
+
+.winners-table tbody tr:last-child td {
+  border-bottom: none;
 }

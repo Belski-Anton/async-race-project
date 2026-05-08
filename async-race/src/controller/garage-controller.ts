@@ -1,8 +1,7 @@
 import { createCar, deleteCar, getCars, updateCar } from '@/api/api-cars'
 import { CARS_PER_PAGE } from '@/constants/constants'
-import { BRANDS, MODELS } from '@/constants/car-names'
 import type { Car } from '@/model/car.model'
-import { getRandomColor, getRandomElement } from '@/utils/random'
+import { generateCars } from '@/services/car-generation.service'
 
 export class GarageController {
   private readonly onRefresh: () => Promise<void>
@@ -53,11 +52,7 @@ export class GarageController {
       onPrevPage: () => this.changePage(-1),
       onNextPage: () => this.changePage(1),
       onGenerationCars: async () => {
-        const cars = Array.from({ length: 100 }, () => ({
-          name: `${getRandomElement(BRANDS)} ${getRandomElement(MODELS)}`,
-          color: getRandomColor(),
-        }))
-        await Promise.all(cars.map((car) => createCar(car.name, car.color)))
+        await generateCars()
         await this.onRefresh()
       },
     }
