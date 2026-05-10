@@ -14,7 +14,11 @@ export class WinnersController {
     this.onRefresh = onRefresh
   }
 
-  public async getPageData(): Promise<{ winners: WinnerRow[] }> {
+  public async getPageData(): Promise<{
+    winners: WinnerRow[]
+    page: number
+    total: number
+  }> {
     const { items, total } = await getWinners(
       this.currentPage,
       WINNERS_PER_PAGE,
@@ -23,19 +27,55 @@ export class WinnersController {
     )
     this.totalWinners = total
 
-    const winners = await Promise.all(
+    const results = await Promise.all(
       items.map(async (winner) => {
-        const car = await getCar(winner.id)
-        return {
-          id: winner.id,
-          name: car.name,
-          color: car.color,
-          wins: winner.wins,
-          time: winner.time,
+        try {
+          const car = await getCar(winner.id)
+          return {
+            id: winner.id,
+            name: car.name,
+            color: car.color,
+            wins: winner.wins,
+            time: winner.time,
+          }
+        } catch {
+          return null
         }
       }),
     )
 
-    return { winners }
+    const winners = results.filter((w): w is WinnerRow => w !== null)
+
+    return { winners, page: this.currentPage, total: this.totalWinners }
+  }
+
+  public buildHandlers() {
+    return {
+      onPrevPage: async () => {
+        if (this.currentPage > 1) {
+          this.currentPage--
+          await this.onRefresh()
+        }
+      },
+
+      onNextPage: async () => {
+        const totalPages = Math.ceil(this.totalWinners / WINNERS_PER_PAGE)
+        if (this.currentPage < totalPages) {
+          this.currentPage++
+          await this.onRefresh()
+        }
+      },
+
+      onSort: async (column: 'id' | 'wins' | 'time') => {
+        if (this.sortBy === column) {
+          this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC'
+        } else {
+          this.sortBy = column
+          this.sortOrder = 'ASC'
+        }
+        this.currentPage = 1
+        await this.onRefresh()
+      },
+    }
   }
 }

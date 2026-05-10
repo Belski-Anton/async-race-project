@@ -8,4 +8,11 @@ export type WinnerRow = {
 
 export type WinnersViewProps = {
   winners: WinnerRow[]
+  page: number
+  total: number
+  handlers: {
+    onPrevPage: () => void
+    onNextPage: () => void
+    onSort: (column: 'id' | 'wins' | 'time') => void
+  }
 }

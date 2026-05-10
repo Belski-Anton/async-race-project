@@ -4,12 +4,16 @@ import type { WinnersViewProps } from './types'
 
 export function createWinnersView({
   winners,
+  page,
+  total,
+  handlers,
 }: WinnersViewProps): HTMLDivElement {
   const container = document.createElement('div')
   container.className = 'winners'
 
+  const totalPages = Math.ceil(total / 10)
   const title = document.createElement('h2')
-  title.textContent = `Winners (${winners.length})`
+  title.textContent = `Winners (page ${page} of ${totalPages}, total ${total})`
 
   const table = document.createElement('table')
   table.className = 'winners-table'
@@ -17,11 +21,21 @@ export function createWinnersView({
   const thead = document.createElement('thead')
   const headRow = document.createElement('tr')
 
-  const headers = ['Number', 'Car', 'Name', 'Wins', 'Best time (seconds)']
+  const sortableHeaders = [
+    { label: 'Number' },
+    { label: 'Car' },
+    { label: 'Name' },
+    { label: 'Wins', sortKey: 'wins' as const },
+    { label: 'Best time (seconds)', sortKey: 'time' as const },
+  ]
 
-  headers.forEach((headerText) => {
+  sortableHeaders.forEach(({ label, sortKey }) => {
     const th = document.createElement('th')
-    th.textContent = headerText
+    th.textContent = label
+    if (sortKey) {
+      th.style.cursor = 'pointer'
+      th.addEventListener('click', () => handlers.onSort(sortKey))
+    }
     headRow.appendChild(th)
   })
 
@@ -56,7 +70,23 @@ export function createWinnersView({
   })
 
   table.append(thead, tbody)
-  container.append(title, table)
+
+  const pagination = document.createElement('div')
+  pagination.className = 'winners-pagination'
+
+  const prevButton = document.createElement('button')
+  prevButton.textContent = 'PREV'
+  prevButton.disabled = page <= 1
+  prevButton.addEventListener('click', () => handlers.onPrevPage())
+
+  const nextButton = document.createElement('button')
+  nextButton.textContent = 'NEXT'
+  nextButton.disabled = page >= totalPages
+  nextButton.addEventListener('click', () => handlers.onNextPage())
+
+  pagination.append(prevButton, nextButton)
+
+  container.append(title, table, pagination)
 
   return container
 }

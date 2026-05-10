@@ -43,7 +43,14 @@ export class AppController {
   }
 
   public async showWinners(): Promise<void> {
-    const { winners } = await this.winners.getPageData()
-    this.render(createWinnersView({ winners }))
+    const { winners, page, total } = await this.winners.getPageData()
+    this.render(
+      createWinnersView({
+        winners,
+        page,
+        total,
+        handlers: this.winners.buildHandlers(),
+      }),
+    )
   }
 }
